@@ -5,9 +5,19 @@ const dotenv=require('dotenv').config()
 
 const app = express();
 const port = 3010;
-const uri="mongodb+srv://sambabupolimetla:root@cluster0.xxyl1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
 
 app.use(express.static('static'));
+
+const db = async ()=>{
+  try {
+  await  mongoose.connect(process.env.URI)
+   console.log("connected successfully")
+ } catch (error) {
+   console.log(error.message)
+ }
+}
+db()
 
 app.get('/', (req, res) => {
   res.sendFile(resolve(__dirname, 'pages/index.html'));
